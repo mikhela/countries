@@ -1,10 +1,17 @@
-import React from 'react';
-import { useState } from 'react';
-export default function CountriesSearch({ search, setSearch }) {
+import React, { useContext, useState } from 'react';
+import { CountriesContext } from '../context/CountriesContext';
+
+export default function CountriesSearch({ setSearch }) { // Receive setSearch as a prop
+  const { setSelectedRegion } = useContext(CountriesContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleRegionClick = (region) => {
+    setSelectedRegion(region);
+    setDropdownOpen(false);
   };
 
   return (
@@ -22,8 +29,8 @@ export default function CountriesSearch({ search, setSearch }) {
             id="default-search"
             className="block w-full pl-10 p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search for a country..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            required
+            onChange={(e) => setSearch(e.target.value)} // Update search state
           />
         </div>
       </form>
@@ -41,19 +48,19 @@ export default function CountriesSearch({ search, setSearch }) {
         {dropdownOpen && (
           <div className="absolute right-0 z-10 bg-dark-blue text-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-dark-blue">
             <ul className="py-2 text-sm sm:text-xs">
-              <li>
+              <li onClick={() => handleRegionClick('Africa')}>
                 <a href="#" className="block px-4 py-2 hover:text-gray-300">Africa</a>
               </li>
-              <li>
-                <a href="#" className="block px-4 py-2 hover:text-gray-300">America</a>
+              <li onClick={() => handleRegionClick('Americas')}>
+                <a href="#" className="block px-4 py-2 hover:text-gray-300">Americas</a>
               </li>
-              <li>
+              <li onClick={() => handleRegionClick('Asia')}>
                 <a href="#" className="block px-4 py-2 hover:text-gray-300">Asia</a>
               </li>
-              <li>
+              <li onClick={() => handleRegionClick('Europe')}>
                 <a href="#" className="block px-4 py-2 hover:text-gray-300">Europe</a>
               </li>
-              <li>
+              <li onClick={() => handleRegionClick('Oceania')}>
                 <a href="#" className="block px-4 py-2 hover:text-gray-300">Oceania</a>
               </li>
             </ul>

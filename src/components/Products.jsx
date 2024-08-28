@@ -4,24 +4,27 @@ import { CountriesContext } from '../context/CountriesContext';
 import CountriesSearch from './CountriesSearch';
 
 export default function Products() {
-  const { countries, loading, error } = useContext(CountriesContext);
-  const [search, setSearch] = useState('');
+  const { countries, loading, error, selectedRegion } = useContext(CountriesContext);
+  const [search, setSearch] = useState(''); // Manage search state
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-  const filteredCountries = countries.filter((country) => 
-    country.name.common.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredCountries = countries
+    .filter(country => 
+      (search === '' || country.name.common.toLowerCase().includes(search.toLowerCase())) &&
+      (selectedRegion === '' || country.region === selectedRegion)
+    );
 
   return (
     <div className='products w-full bg-very-dark-blue-bg'>
-      <CountriesSearch search={search} setSearch={setSearch} />
+      <CountriesSearch setSearch={setSearch} /> {/* Pass setSearch to CountriesSearch */}
+
       <div className="prods--container container mx-auto px-4 py-2 flex flex-wrap justify-between items-center gap-x-4 
         md:px-4 md:w-full 
-        sm:w-[320px] sm:px-0
-        ">
-        {filteredCountries.map((country) => (
+        sm:w-[320px] sm:px-0">
+        
+        {filteredCountries.map(country => (
           <CountriesCard
             key={country.cca3}  
             name={country.name.common}
