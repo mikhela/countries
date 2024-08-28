@@ -19,23 +19,7 @@ export default function Navbar() {
         >
           Where in the world?
         </Link>
-        <button
-          className="text-white px-4 py-2 flex items-center text-sm md:text-base"
-          type="button"
-          onClick={toggleDarkMode}
-        >
-          {darkMode ? (
-            <>
-              <FontAwesomeIcon icon={faMoon} className="mr-2" />
-              Dark Mode
-            </>
-          ) : (
-            <>
-              <FontAwesomeIcon icon={faSun} className="mr-2" />
-              Light Mode
-            </>
-          )}
-        </button>
+              <FontAwesomeIcon icon={faMoon} className="mr-2 text-white cursor-no" />
       </div>
     </nav>
   );
