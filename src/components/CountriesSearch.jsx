@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useState } from 'react';
+export default function CountriesSearch({ search, setSearch }) {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-export default function CountriesSearch() {
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-
-    const toggleDropdown = () => {
-      setDropdownOpen(!dropdownOpen);
-    };
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
 
   return (
     <div className="container mx-auto p-4 flex justify-between items-center gap-10">
@@ -22,7 +22,8 @@ export default function CountriesSearch() {
             id="default-search"
             className="block w-full pl-10 p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search for a country..."
-            required
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
       </form>
@@ -41,7 +42,7 @@ export default function CountriesSearch() {
           <div className="absolute right-0 z-10 bg-dark-blue text-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-dark-blue">
             <ul className="py-2 text-sm sm:text-xs">
               <li>
-                <a href="#" className="block px-4 py-2 hover:text-gray-300">Afrika</a>
+                <a href="#" className="block px-4 py-2 hover:text-gray-300">Africa</a>
               </li>
               <li>
                 <a href="#" className="block px-4 py-2 hover:text-gray-300">America</a>
@@ -60,5 +61,5 @@ export default function CountriesSearch() {
         )}
       </div>
     </div>
-  )
+  );
 }
